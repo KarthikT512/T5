@@ -4,12 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ChevronsDown } from "lucide-react";
 import HeroContent from "./HeroContent";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState("right");
   const autoplayTimerRef = useRef(null);
   const slidesRef = useRef(null);
+  const navigate = useNavigate();
 
   const slides = [
     {
@@ -23,17 +25,11 @@ const Hero = () => {
       gradientFrom: "from-black/70 via-black/50 to-transparent",
       primaryButton: {
         text: "Explore Courses",
-        action: () => {
-          // Navigate to courses
-          window.location.href = "/courses";
-        },
+        action: () => navigate("/courses"),
       },
       secondaryButton: {
         text: "Meet Our IITians",
-        action: () => {
-          // Open modal with faculty info
-          console.log("Open faculty modal");
-        },
+        action: () => navigate("/teachers"),
         textColor: "text-white",
       },
     },
@@ -48,17 +44,11 @@ const Hero = () => {
       gradientFrom: "from-black/70 via-black/50 to-transparent",
       primaryButton: {
         text: "View Programs",
-        action: () => {
-          // Navigate to programs
-          window.location.href = "/courses";
-        },
+        action: () => navigate("/courses"),
       },
       secondaryButton: {
         text: "Research Publications",
-        action: () => {
-          // Open research publications
-          console.log("Open research publications");
-        },
+        action: () => navigate("/aboutus"),
         textColor: "text-white",
       },
     },
@@ -73,17 +63,11 @@ const Hero = () => {
       gradientFrom: "from-black/70 via-black/50 to-transparent",
       primaryButton: {
         text: "Certification Programs",
-        action: () => {
-          // View certification options
-          console.log("View certification programs");
-        },
+        action: () => navigate("/certification"),
       },
       secondaryButton: {
-        text: "Alumni Success Stories",
-        action: () => {
-          // Navigate to alumni stories
-          window.location.href = "/success-stories";
-        },
+        text: "About T5",
+        action: () => navigate("/aboutus"),
         textColor: "text-white",
       },
     },

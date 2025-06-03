@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-// Sample teacher data with more detailed information
 const teachers = [
   {
     name: "Dr. Akash Pandey",
     subject: "Physics",
-    // Using UI Avatars for monochrome avatar images
     image:
       "https://ui-avatars.com/api/?name=Akash+Pandey&background=000000&color=ffffff&size=256&bold=true&format=svg",
     description: "Expert in Quantum Mechanics & Relativity",
@@ -29,12 +28,7 @@ const teachers = [
     courses: 8,
     completionRate: "94%",
     averageResponseTime: "2 hours",
-    social: {
-      twitter: "#",
-      linkedin: "#",
-      youtube: "#",
-      website: "#",
-    },
+    social: { twitter: "#", linkedin: "#", youtube: "#", website: "#" },
   },
   {
     name: "Prof. Vishal Kumar",
@@ -57,12 +51,7 @@ const teachers = [
     courses: 6,
     completionRate: "92%",
     averageResponseTime: "3 hours",
-    social: {
-      twitter: "#",
-      linkedin: "#",
-      youtube: "#",
-      website: "#",
-    },
+    social: { twitter: "#", linkedin: "#", youtube: "#", website: "#" },
   },
   {
     name: "Dr. Rahul Sharma",
@@ -86,12 +75,7 @@ const teachers = [
     courses: 10,
     completionRate: "88%",
     averageResponseTime: "1 hour",
-    social: {
-      twitter: "#",
-      linkedin: "#",
-      youtube: "#",
-      github: "#",
-    },
+    social: { twitter: "#", linkedin: "#", youtube: "#", github: "#" },
   },
   {
     name: "Dr. Priya Singh",
@@ -119,18 +103,10 @@ const teachers = [
     courses: 7,
     completionRate: "95%",
     averageResponseTime: "4 hours",
-    social: {
-      twitter: "#",
-      linkedin: "#",
-      youtube: "#",
-      researchGate: "#",
-    },
+    social: { twitter: "#", linkedin: "#", youtube: "#", researchGate: "#" },
   },
 ];
 
-// This component has been removed as custom cursor effects are no longer needed
-
-// Enhanced TeacherCard component with more visual effects and monochrome design
 const TeacherCard = ({ teacher, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
@@ -169,15 +145,10 @@ const TeacherCard = ({ teacher, index }) => {
         transition: { type: "spring", stiffness: 300, damping: 15 },
       }}
       className="group relative h-full cursor-pointer"
-      onMouseEnter={() => {
-        setIsHovered(true);
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false);
-      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden h-full relative z-10 border border-gray-200 dark:border-gray-800">
-        {/* Geometric decorative elements */}
         <motion.div
           className="absolute -right-6 -top-6 w-20 h-20 bg-black/5 dark:bg-white/5 rounded-full z-0"
           animate={
@@ -185,7 +156,6 @@ const TeacherCard = ({ teacher, index }) => {
           }
           transition={{ duration: 0.5 }}
         />
-
         <motion.div
           className="absolute -left-4 -bottom-4 w-16 h-16 bg-black/5 dark:bg-white/5 rounded-full z-0"
           animate={
@@ -193,10 +163,7 @@ const TeacherCard = ({ teacher, index }) => {
           }
           transition={{ duration: 0.5 }}
         />
-
-        {/* Teacher Avatar Area with Monochrome Design */}
         <div className="relative overflow-hidden bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 p-8 flex flex-col items-center">
-          {/* Avatar with circular frame and subtle animation */}
           <motion.div
             className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl mb-4"
             whileHover={{ scale: 1.05 }}
@@ -207,8 +174,6 @@ const TeacherCard = ({ teacher, index }) => {
               alt={teacher.name}
               className="w-full h-full object-cover"
             />
-
-            {/* Animated ring effect on hover */}
             <motion.div
               className="absolute inset-0 rounded-full border-2 border-black/0 dark:border-white/0"
               animate={
@@ -226,8 +191,6 @@ const TeacherCard = ({ teacher, index }) => {
               transition={{ duration: 1.5, repeat: Infinity }}
             />
           </motion.div>
-
-          {/* Teacher name with premium style */}
           <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center relative">
             {teacher.name}
             <motion.span
@@ -239,15 +202,11 @@ const TeacherCard = ({ teacher, index }) => {
               PRO
             </motion.span>
           </h3>
-
-          {/* Subject with subtle pill design */}
           <div className="mt-1 mb-3">
             <span className="inline-block px-3 py-1 bg-black/10 dark:bg-white/10 text-black dark:text-white text-sm rounded-full">
               {teacher.subject}
             </span>
           </div>
-
-          {/* Rating with stars */}
           <div className="flex items-center mb-4">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
@@ -268,13 +227,7 @@ const TeacherCard = ({ teacher, index }) => {
             <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               {teacher.rating}
             </span>
-            {/* <span className="mx-1.5 text-gray-500">•</span> */}
-            {/* <span className="text-sm text-gray-600 dark:text-gray-400">
-              {teacher.students.toLocaleString()} students
-            </span> */}
           </div>
-
-          {/* Social links in monochrome */}
           <div className="flex justify-center space-x-3">
             {Object.entries(teacher.social).map(([platform, link], idx) => (
               <motion.a
@@ -387,18 +340,13 @@ const TeacherCard = ({ teacher, index }) => {
             ))}
           </div>
         </div>
-
-        {/* Teacher info section - more compact */}
         <div className="p-4">
-          {/* Short bio */}
           <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
             <span className="font-medium text-black dark:text-white">
               Bio:{" "}
             </span>
             {teacher.shortBio}
           </p>
-
-          {/* Expertise areas in a compact row */}
           <div className="mb-3">
             <div className="flex flex-wrap gap-1">
               {teacher.expertise.slice(0, 2).map((skill, idx) => (
@@ -426,8 +374,6 @@ const TeacherCard = ({ teacher, index }) => {
               )}
             </div>
           </div>
-
-          {/* Key stats in a compact layout */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
             <div className="flex justify-between items-center">
               <span className="text-gray-500 dark:text-gray-400">
@@ -460,8 +406,6 @@ const TeacherCard = ({ teacher, index }) => {
               </span>
             </div>
           </div>
-
-          {/* Primary action button */}
           <motion.button
             className="mt-3 w-full py-2.5 bg-black dark:bg-white text-white dark:text-black rounded-md font-medium text-sm"
             whileHover={{
@@ -487,8 +431,6 @@ const TeacherCard = ({ teacher, index }) => {
             </span>
           </motion.button>
         </div>
-
-        {/* Animated border on hover - monochrome */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-[2px] bg-black dark:bg-white"
           initial={{ scaleX: 0, originX: 0 }}
@@ -500,12 +442,11 @@ const TeacherCard = ({ teacher, index }) => {
   );
 };
 
-// Main Teachers component with enhanced animations
 const Teachers = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const controls = useAnimation();
-  // No cursor variant state needed anymore
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isInView) {
@@ -513,10 +454,8 @@ const Teachers = () => {
     }
   }, [isInView, controls]);
 
-  // Background particles with monochrome theme
   const BackgroundElements = () => (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Background geometric shapes */}
       {[...Array(15)].map((_, i) => {
         const isCircle = Math.random() > 0.6;
         return (
@@ -549,12 +488,7 @@ const Teachers = () => {
           />
         );
       })}
-
-      {/* Grid lines for depth */}
-      <div
-        className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMC4yIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiIC8+PC9zdmc+')]
-             dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC4yIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiIC8+PC9zdmc+')]"
-      />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMC4yIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiIC8+PC9zdmc+')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC4yIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiIC8+PC9zdmc+')]" />
     </div>
   );
 
@@ -564,11 +498,8 @@ const Teachers = () => {
       className="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 relative overflow-hidden"
       ref={ref}
     >
-      {/* No custom cursor */}
       <BackgroundElements />
-
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section header */}
         <motion.div
           initial="hidden"
           animate={controls}
@@ -577,11 +508,7 @@ const Teachers = () => {
             visible: {
               opacity: 1,
               y: 0,
-              transition: {
-                duration: 0.6,
-                type: "spring",
-                stiffness: 100,
-              },
+              transition: { duration: 0.6, type: "spring", stiffness: 100 },
             },
           }}
           className="text-center mb-14"
@@ -593,7 +520,6 @@ const Teachers = () => {
           >
             EXPERT INSTRUCTORS
           </motion.span>
-
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
             Learn from the{" "}
             <span className="text-black dark:text-white underline underline-offset-4 decoration-2">
@@ -601,7 +527,6 @@ const Teachers = () => {
             </span>{" "}
             in the Field
           </h2>
-
           <motion.p
             className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-lg"
             initial={{ opacity: 0, y: 20 }}
@@ -620,15 +545,11 @@ const Teachers = () => {
             toward success.
           </motion.p>
         </motion.div>
-
-        {/* Teacher cards grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {teachers.map((teacher, index) => (
             <TeacherCard key={index} teacher={teacher} index={index} />
           ))}
         </div>
-
-        {/* Call to action buttons */}
         <motion.div
           initial="hidden"
           animate={controls}
@@ -649,6 +570,7 @@ const Teachers = () => {
               boxShadow: "0 15px 30px rgba(0, 0, 0, 0.2)",
             }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/teachers")}
           >
             <span className="flex items-center">
               <svg
@@ -666,11 +588,11 @@ const Teachers = () => {
               Become an Instructor
             </span>
           </motion.button>
-
           <motion.button
             className="mx-2 mt-4 md:mt-0 px-8 py-3.5 border-2 border-black dark:border-white text-black dark:text-white rounded-lg font-medium hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/teachers")}
           >
             <span className="flex items-center">
               <svg

@@ -234,15 +234,6 @@ const Footer = ({ setCursorVariant }) => {
                 </li>
               ))}
             </ul>
-            <motion.button
-              className="mt-6 px-4 py-2 bg-white text-black border border-white rounded-md cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onMouseEnter={() => setCursorVariant("hover")}
-              onMouseLeave={() => setCursorVariant("default")}
-            >
-              Get in Touch
-            </motion.button>
           </div>
         </div>
       </div>
