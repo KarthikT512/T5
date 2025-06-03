@@ -41,12 +41,15 @@ const TeacherIndex = () => {
     const fetchTeachers = async () => {
       try {
         const token = localStorage.getItem("t5_token");
-        const response = await fetch("http://localhost:8000/api/teachers", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
+        const response = await fetch(
+          "https://t5-in2v.onrender.com/api/teachers",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch teachers");
         }
@@ -96,7 +99,7 @@ const TeacherIndex = () => {
       try {
         const token = localStorage.getItem("t5_token");
         const response = await fetch(
-          `http://localhost:8000/api/teachers/${teacherId}`,
+          `https://t5-in2v.onrender.com/api/teachers/${teacherId}`,
           {
             method: "DELETE",
             headers: {

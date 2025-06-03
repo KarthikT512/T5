@@ -77,7 +77,7 @@ function ProfileEdit({ setCursorVariant }) {
 
     try {
       const token = localStorage.getItem("t5_token");
-      const response = await fetch("http://localhost:8000/api/auth/me", {
+      const response = await fetch("https://t5-in2v.onrender.com/api/auth/me", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

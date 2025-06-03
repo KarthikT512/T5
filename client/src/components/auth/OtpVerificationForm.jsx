@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { X, Check } from "lucide-react";
 
-const API_BASE_URL = "http://localhost:8000/api/auth";
+const API_BASE_URL = "https://t5-in2v.onrender.com/api/auth";
 
 const OtpVerificationForm = ({
   onClose,

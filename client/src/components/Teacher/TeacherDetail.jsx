@@ -29,7 +29,7 @@ const TeacherDetail = () => {
       try {
         const token = localStorage.getItem("t5_token");
         const response = await fetch(
-          `http://localhost:8000/api/teachers/${id}`,
+          `https://t5-in2v.onrender.com/api/teachers/${id}`,
           {
             headers: {
               "Content-Type": "application/json",

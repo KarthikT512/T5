@@ -51,7 +51,7 @@ const TeacherForm = () => {
           } else if (user.role === "worker") {
             // For workers, fetch available users
             const response = await fetch(
-              "http://localhost:8000/api/auth/available-for-teacher",
+              "https://t5-in2v.onrender.com/api/auth/available-for-teacher",
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const TeacherForm = () => {
 
           // Fetch max id for new teacher
           const teachersResponse = await fetch(
-            "http://localhost:8000/api/teachers",
+            "https://t5-in2v.onrender.com/api/teachers",
             {
               headers: {
                 "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const TeacherForm = () => {
         } else {
           // Editing an existing teacher profile
           const response = await fetch(
-            `http://localhost:8000/api/teachers/${id}`,
+            `https://t5-in2v.onrender.com/api/teachers/${id}`,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -138,8 +138,8 @@ const TeacherForm = () => {
       const token = localStorage.getItem("t5_token");
       const method = id ? "PUT" : "POST";
       const url = id
-        ? `http://localhost:8000/api/teachers/${id}`
-        : "http://localhost:8000/api/teachers";
+        ? `https://t5-in2v.onrender.com/api/teachers/${id}`
+        : "https://t5-in2v.onrender.com/api/teachers";
       const response = await fetch(url, {
         method,
         headers: {

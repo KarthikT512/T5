@@ -33,7 +33,7 @@ const SignupForm = ({ onSwitchToLogin, onSignupComplete }) => {
   });
 
   const navigate = useNavigate();
-  const API_BASE_URL = "http://localhost:8000/api/auth";
+  const API_BASE_URL = "https://t5-in2v.onrender.com/api/auth";
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

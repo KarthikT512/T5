@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Mail } from "lucide-react";
 
-const API_BASE_URL = "http://localhost:8000/api/auth";
+const API_BASE_URL = "https://t5-in2v.onrender.com/api/auth";
 
 const ResetPasswordForm = ({ onClose, onBackToLogin, onResetComplete }) => {
   const [email, setEmail] = useState("");

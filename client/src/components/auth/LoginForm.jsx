@@ -27,7 +27,7 @@ const LoginForm = ({ onSwitchToSignup, onSwitchToReset }) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Call the login function from AuthContext (which now connects to http://localhost:8000)
+    // Call the login function from AuthContext (which now connects to https://t5-in2v.onrender.com)
     const result = await login(email, password);
     if (result.success) {
       setShowSuccessPopup(true);
