@@ -301,7 +301,7 @@ router.post("/password-reset-request", async (req, res) => {
     user.resetTokenExpires = resetTokenExpires;
     await user.save();
 
-    const resetUrl = `http://localhost:5173/password-reset/${resetToken}`;
+    const resetUrl = `https://missiont5.vercel.app/password-reset/${resetToken}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
