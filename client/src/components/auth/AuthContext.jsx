@@ -51,8 +51,10 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("t5_user", JSON.stringify(userData.data));
       return { success: true };
     } catch (err) {
-      setError(err.message);
-      return { success: false, error: err.message };
+      const errorMessage =
+        err.response?.data?.error || err.response?.data || err.message;
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
     } finally {
       setLoading(false);
     }
@@ -66,8 +68,10 @@ export const AuthProvider = ({ children }) => {
       const response = await api.post(`/api/auth/signup/${endpoint}`, userData);
       return { success: true, message: response.data.message };
     } catch (err) {
-      setError(err.message);
-      return { success: false, error: err.message };
+      const errorMessage =
+        err.response?.data?.error || err.response?.data || err.message;
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
     } finally {
       setLoading(false);
     }

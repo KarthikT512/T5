@@ -12,6 +12,7 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
+import { useAuth } from "./AuthContext";
 
 const SignupForm = ({ onSwitchToLogin, onSignupComplete }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +24,7 @@ const SignupForm = ({ onSwitchToLogin, onSignupComplete }) => {
     role: "student", // Default role
     agreeToTerms: false,
   });
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [passwordStrength, setPasswordStrength] = useState({
     hasMinLength: false,
     hasUppercase: false,
@@ -33,6 +34,7 @@ const SignupForm = ({ onSwitchToLogin, onSignupComplete }) => {
   });
 
   const navigate = useNavigate();
+  const { register } = useAuth();
   const API_BASE_URL = "https://t5-in2v.onrender.com/api/auth";
 
   const handleChange = (e) => {
@@ -62,32 +64,29 @@ const SignupForm = ({ onSwitchToLogin, onSignupComplete }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage(""); // Clear previous error
+
+    if (!isPasswordStrong || !formData.agreeToTerms) {
+      setErrorMessage("Please ensure all requirements are met.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      // Use the signup endpoint based on the selected role (student, teacher, or worker).
-      const endpoint = formData.role;
-      const response = await fetch(`${API_BASE_URL}/signup/${endpoint}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // The backend requires mobile, so here a dummy value is added.
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          mobile: "0000000000",
-          role: formData.role,
-        }),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Registration failed");
+      const userData = { ...formData, mobile: "0000000000" };
+      const result = await register(userData);
+      if (result.success) {
+        // In a real app with OTP verification you might redirect to an OTP verification page.
+        if (onSignupComplete) {
+          onSignupComplete(formData.email);
+        }
+      } else {
+        setErrorMessage(result.error); // Display specific error
+        console.error("Signup error:", result.error);
       }
-      // In a real app with OTP verification you might redirect to an OTP verification page.
       setIsLoading(false);
-      if (onSignupComplete) {
-        onSignupComplete(formData.email);
-      }
     } catch (error) {
+      setErrorMessage(error.message);
       console.error("Signup error:", error);
       setIsLoading(false);
     }
@@ -96,6 +95,15 @@ const SignupForm = ({ onSwitchToLogin, onSignupComplete }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        {errorMessage && (
+          <motion.div
+            className="mb-4 p-3 bg-red-100 text-red-700 rounded-md"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {errorMessage}
+          </motion.div>
+        )}
         <motion.div
           className="mb-4"
           initial={{ opacity: 0, y: 20 }}

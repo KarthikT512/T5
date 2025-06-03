@@ -20,12 +20,14 @@ const LoginForm = ({ onSwitchToSignup, onSwitchToReset }) => {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage(""); // Clear previous error
 
     // Call the login function from AuthContext (which now connects to https://t5-in2v.onrender.com)
     const result = await login(email, password);
@@ -36,6 +38,7 @@ const LoginForm = ({ onSwitchToSignup, onSwitchToReset }) => {
         navigate("/");
       }, 2000);
     } else {
+      setErrorMessage(result.error); // Display specific error
       console.error("Login failed:", result.error);
     }
     setIsLoading(false);
@@ -95,6 +98,15 @@ const LoginForm = ({ onSwitchToSignup, onSwitchToReset }) => {
       </AnimatePresence>
 
       <form onSubmit={handleSubmit}>
+        {errorMessage && (
+          <motion.div
+            className="mb-4 p-3 bg-red-100 text-red-700 rounded-md"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {errorMessage}
+          </motion.div>
+        )}
         <motion.div
           className="mb-4"
           initial={{ opacity: 0, y: 20 }}
