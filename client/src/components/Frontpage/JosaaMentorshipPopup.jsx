@@ -7,7 +7,8 @@ const JosaaMentorshipPopup = ({ onClose }) => {
     name: "",
     phone: "",
     email: "",
-    rank: "",
+    jeeMainRank: "",
+    jeeAdvancedRank: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -31,8 +32,14 @@ const JosaaMentorshipPopup = ({ onClose }) => {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (!formData.rank.trim() || isNaN(formData.rank)) {
-      newErrors.rank = "Please enter a valid rank (numeric value)";
+    if (!formData.jeeMainRank.trim() || isNaN(formData.jeeMainRank)) {
+      newErrors.jeeMainRank =
+        "Please enter a valid JEE Main rank (numeric value)";
+    }
+
+    if (!formData.jeeAdvancedRank.trim() || isNaN(formData.jeeAdvancedRank)) {
+      newErrors.jeeAdvancedRank =
+        "Please enter a valid JEE Advanced rank (numeric value)";
     }
 
     setErrors(newErrors);
@@ -51,7 +58,13 @@ const JosaaMentorshipPopup = ({ onClose }) => {
       const response = await api.post("/api/auth/josaa-mentorship", formData);
       if (response.data.success) {
         setSubmitStatus("success");
-        setFormData({ name: "", phone: "", email: "", rank: "" });
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          jeeMainRank: "",
+          jeeAdvancedRank: "",
+        });
         setErrors({});
         setTimeout(onClose, 3000); // Close popup after 3 seconds
       } else {
@@ -464,7 +477,7 @@ const JosaaMentorshipPopup = ({ onClose }) => {
               )}
             </motion.div>
 
-            {/* Rank Field */}
+            {/* JEE Main Rank Field */}
             <motion.div
               custom={3}
               initial="hidden"
@@ -475,17 +488,17 @@ const JosaaMentorshipPopup = ({ onClose }) => {
               <div style={{ position: "relative" }}>
                 <input
                   type="text"
-                  name="rank"
-                  value={formData.rank}
+                  name="jeeMainRank"
+                  value={formData.jeeMainRank}
                   onChange={handleChange}
-                  placeholder="JEE/Advanced Rank"
+                  placeholder="JEE Main Rank"
                   style={{
                     width: "100%",
                     paddingLeft: "1rem",
                     paddingRight: "3rem",
                     paddingTop: "1rem",
                     paddingBottom: "1rem",
-                    border: errors.rank
+                    border: errors.jeeMainRank
                       ? "2px solid #ef4444"
                       : "2px solid #e5e5e5",
                     borderRadius: "0.75rem",
@@ -501,7 +514,8 @@ const JosaaMentorshipPopup = ({ onClose }) => {
                     e.target.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.08)";
                   }}
                   onBlur={(e) => {
-                    if (!errors.rank) e.target.style.borderColor = "#e5e5e5";
+                    if (!errors.jeeMainRank)
+                      e.target.style.borderColor = "#e5e5e5";
                     e.target.style.transform = "translateY(0)";
                     e.target.style.boxShadow = "none";
                   }}
@@ -534,7 +548,7 @@ const JosaaMentorshipPopup = ({ onClose }) => {
                   </svg>
                 </motion.div>
               </div>
-              {errors.rank && (
+              {errors.jeeMainRank && (
                 <p
                   style={{
                     color: "#ef4444",
@@ -543,14 +557,99 @@ const JosaaMentorshipPopup = ({ onClose }) => {
                     marginLeft: "0.25rem",
                   }}
                 >
-                  {errors.rank}
+                  {errors.jeeMainRank}
+                </p>
+              )}
+            </motion.div>
+
+            {/* JEE Advanced Rank Field */}
+            <motion.div
+              custom={4}
+              initial="hidden"
+              animate="visible"
+              variants={formVariants}
+              style={{ position: "relative" }}
+            >
+              <div style={{ position: "relative" }}>
+                <input
+                  type="text"
+                  name="jeeAdvancedRank"
+                  value={formData.jeeAdvancedRank}
+                  onChange={handleChange}
+                  placeholder="JEE Advanced Rank"
+                  style={{
+                    width: "100%",
+                    paddingLeft: "1rem",
+                    paddingRight: "3rem",
+                    paddingTop: "1rem",
+                    paddingBottom: "1rem",
+                    border: errors.jeeAdvancedRank
+                      ? "2px solid #ef4444"
+                      : "2px solid #e5e5e5",
+                    borderRadius: "0.75rem",
+                    fontSize: "1rem",
+                    color: "#000000",
+                    background: "#ffffff",
+                    outline: "none",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#000000";
+                    e.target.style.transform = "translateY(-1px)";
+                    e.target.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.08)";
+                  }}
+                  onBlur={(e) => {
+                    if (!errors.jeeAdvancedRank)
+                      e.target.style.borderColor = "#e5e5e5";
+                    e.target.style.transform = "translateY(0)";
+                    e.target.style.boxShadow = "none";
+                  }}
+                />
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={iconVariants}
+                  style={{
+                    position: "absolute",
+                    right: "1rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 10,
+                  }}
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="#9ca3af"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                </motion.div>
+              </div>
+              {errors.jeeAdvancedRank && (
+                <p
+                  style={{
+                    color: "#ef4444",
+                    fontSize: "0.875rem",
+                    marginTop: "0.5rem",
+                    marginLeft: "0.25rem",
+                  }}
+                >
+                  {errors.jeeAdvancedRank}
                 </p>
               )}
             </motion.div>
 
             {/* Submit Button */}
             <motion.div
-              custom={4}
+              custom={5}
               initial="hidden"
               animate="visible"
               variants={formVariants}

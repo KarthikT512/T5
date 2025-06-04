@@ -454,40 +454,6 @@ router.post("/josaa-mentorship", async (req, res) => {
   }
 });
 
-// Updated Josaa Mentorship Enrollment Endpoint to handle both ranks
-router.post("/josaa-mentorship", async (req, res) => {
-  try {
-    const { name, phone, email, jeeMainRank, jeeAdvancedRank } = req.body;
-    if (!name || !phone || !email) {
-      return res
-        .status(400)
-        .json({ error: "Name, phone, and email are required." });
-    }
-
-    const contactEmail = process.env.CONTACT_EMAIL;
-    let rankText = "";
-    if (jeeMainRank) {
-      rankText += `\nJEE Main Rank: ${jeeMainRank}`;
-    }
-    if (jeeAdvancedRank) {
-      rankText += `\nJEE Advanced Rank: ${jeeAdvancedRank}`;
-    }
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: contactEmail,
-      subject: "New Josaa Mentorship Enrollment",
-      text: `New enrollment for Josaa Mentorship:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}${rankText}`,
-    };
-
-    await transporter.sendMail(mailOptions);
-    res.json({ success: true, message: "Enrollment submitted successfully." });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error submitting enrollment." });
-  }
-});
-
 // Export the router and middleware functions
 module.exports = router;
 module.exports.verifyToken = verifyToken;
