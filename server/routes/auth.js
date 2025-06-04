@@ -430,22 +430,23 @@ router.post("/contact-us", async (req, res) => {
   }
 });
 
-// NEW: Josaa Mentorship Enrollment Endpoint
+// UPDATED: Josaa Mentorship Enrollment Endpoint
 router.post("/josaa-mentorship", async (req, res) => {
   try {
-    const { name, phone, email, rank } = req.body;
-    if (!name || !phone || !email || !rank) {
+    const { name, phone, email, jeeMainRank, jeeAdvancedRank } = req.body;
+    if (!name || !phone || !email || !jeeMainRank || !jeeAdvancedRank) {
       return res.status(400).json({ error: "All fields are required." });
     }
-
+    if (isNaN(jeeMainRank) || isNaN(jeeAdvancedRank)) {
+      return res.status(400).json({ error: "Ranks must be numeric." });
+    }
     const contactEmail = process.env.CONTACT_EMAIL; // Same email as Contact Us
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: contactEmail,
       subject: "New Josaa Mentorship Enrollment",
-      text: `New enrollment for Josaa Mentorship:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nJEE/Advanced Rank: ${rank}`,
+      text: `New enrollment for Josaa Mentorship:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nJEE Main Rank: ${jeeMainRank}\nJEE Advanced Rank: ${jeeAdvancedRank}`,
     };
-
     await transporter.sendMail(mailOptions);
     res.json({ success: true, message: "Enrollment submitted successfully." });
   } catch (error) {
