@@ -333,7 +333,7 @@ const CourseDashboard = ({ setCursorVariant }) => {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white p-6 rounded-lg max-w-md w-full overflow-y-auto max-h-[80vh]">
+        <div className="bg-white p-6 rounded-lg max-w-md w-full overflow-y-auto max-h-[80 **-webkit-overflow-scrolling: touch">
           <h2 className="text-xl font-bold mb-4">
             {editingItem
               ? `Edit ${activeSection.slice(0, -1)}`
@@ -1101,7 +1101,10 @@ const CourseDashboard = ({ setCursorVariant }) => {
                 })}
               </div>
               <div className="mt-8 pt-8 border-t border-gray-200">
-                <button className="w-full flex items-center justify-start px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition-colors">
+                <button
+                  onClick={() => navigate("/contactus")}
+                  className="w-full flex items-center justify-start px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition-colors"
+                >
                   <HelpCircle className="mr-3 h-4 w-4" />
                   <span className="text-sm">Help & Support</span>
                 </button>
@@ -1169,7 +1172,13 @@ const CourseDashboard = ({ setCursorVariant }) => {
                       })}
                     </div>
                     <div className="mt-8 pt-8 border-t border-gray-200">
-                      <button className="w-full flex items-center justify-start px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition-colors">
+                      <button
+                        onClick={() => {
+                          navigate("/contactus");
+                          setSidebarOpen(false);
+                        }}
+                        className="w-full flex items-center justify-start px-4 py-3 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition-colors"
+                      >
                         <HelpCircle className="mr-3 h-4 w-4" />
                         <span className="text-sm">Help & Support</span>
                       </button>

@@ -34,10 +34,12 @@ import Dashboard from "./components/dashboard/Dashboard";
 import CourseDashboard from "./components/dashboard/CourseDashboard";
 import ContactUs from "./components/Frontpage/ContacttUs"; // Added import
 import AboutUs from "./components/Frontpage/AboutUs"; // Added import
+import JosaaMentorshipPopup from "./components/Frontpage/JosaaMentorshipPopup"; // New import
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [cursorVariant, setCursorVariant] = useState("default");
+  const [showPopup, setShowPopup] = useState(true); // New state for popup visibility
 
   const cursorEnter = () => setCursorVariant("hover");
   const cursorLeave = () => setCursorVariant("default");
@@ -68,6 +70,9 @@ function App() {
       el.addEventListener("mouseleave", cursorLeave);
       el.addEventListener("mousedown", cursorClick);
     });
+
+    // Show popup on initial load
+    setShowPopup(true);
 
     return () => {
       clearTimeout(timer);
@@ -176,6 +181,9 @@ function App() {
             </Routes>
             <Chatbot setCursorVariant={setCursorVariant} />
             <ScrollToTop setCursorVariant={setCursorVariant} />
+            {showPopup && (
+              <JosaaMentorshipPopup onClose={() => setShowPopup(false)} />
+            )}
           </motion.div>
         )}
       </AnimatePresence>
