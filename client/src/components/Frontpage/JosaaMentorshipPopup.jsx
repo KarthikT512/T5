@@ -211,8 +211,8 @@ const JosaaMentorshipPopup = ({ onClose }) => {
               margin: "0 auto",
             }}
           >
-            This year, students can enroll for the Josaa mentorship provided by
-            T5.
+            This year JEE students can enroll for the Josaa mentorship provided
+            by T5.
           </motion.p>
         </motion.div>
 
