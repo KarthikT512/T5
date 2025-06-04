@@ -260,7 +260,6 @@ router.put(
         if (existingUser) {
           return res.status(400).json({ error: "Email already in use." });
         }
-        यू;
       }
 
       // Update only the allowed fields
@@ -428,6 +427,30 @@ router.post("/contact-us", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error sending message." });
+  }
+});
+
+// NEW: Josaa Mentorship Enrollment Endpoint
+router.post("/josaa-mentorship", async (req, res) => {
+  try {
+    const { name, phone, email, rank } = req.body;
+    if (!name || !phone || !email || !rank) {
+      return res.status(400).json({ error: "All fields are required." });
+    }
+
+    const contactEmail = process.env.CONTACT_EMAIL; // Same email as Contact Us
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: contactEmail,
+      subject: "New Josaa Mentorship Enrollment",
+      text: `New enrollment for Josaa Mentorship:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nJEE/Advanced Rank: ${rank}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true, message: "Enrollment submitted successfully." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error submitting enrollment." });
   }
 });
 
